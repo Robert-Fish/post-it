@@ -6,13 +6,21 @@ import { act, fireEvent } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import React from "react";
-import userListResponse from "../../mockResponses/userList";
 import Home from "../../pages/index";
 import { render } from "../test-utils";
+import userListResponseExpanded from "../../mockResponses/useListMoreResults";
+import userListResponse from "../../mockResponses/userListDefault";
 
 const server = setupServer(
   rest.get("https://dummyapi.io/data/api/user", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(userListResponse));
+    const limit = req.url.searchParams.get("limit");
+    console.log(limit);
+
+    if (limit === 20) {
+      return res(ctx.status(200), ctx.json(userListResponseExpanded));
+    } else {
+      return res(ctx.status(200), ctx.json(userListResponse));
+    }
   })
 );
 
@@ -26,10 +34,10 @@ afterEach(() => server.resetHandlers());
 
 describe("Home", () => {
   test("should render a grid of 10 users as cards", async () => {
-    const { getAllByTestId, getByTestId } = render(<Home />);
+    const { getAllByTestId } = render(<Home />);
     await new Promise((r) => setTimeout(r, 1000));
-    const grid = getByTestId("grid");
-    expect(grid).toBeInTheDocument();
+    const users = getAllByTestId("profile");
+    expect(users.length).toBe(10);
   });
 
   test("should render a load more button to load 1s0 more users into the existing user grid", async () => {
@@ -42,6 +50,7 @@ describe("Home", () => {
   test("should display 10 more users than currently show in user grid", async () => {
     const currentNoOfUsersInGrid = 10;
     const { getByText, getAllByTestId } = render(<Home />);
+    await new Promise((r) => setTimeout(r, 1000));
     const loadMoreButton = getByText("Load More");
 
     await act(async () => {

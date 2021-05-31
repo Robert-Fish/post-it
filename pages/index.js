@@ -111,9 +111,9 @@ export default function Home() {
             }}
             gap={6}
           >
-            {users?.map((user) => (
+            {users?.map((user, index) => (
               <Box
-                data-testid="profile"
+                data-testid={`profile`}
                 borderWidth="1px"
                 borderRadius="lg"
                 overflow="hidden"
