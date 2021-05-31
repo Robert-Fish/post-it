@@ -9,15 +9,30 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
   const [searchTerm, setTerm] = useState("");
   const [users, setUsers] = useState([]);
   const [userResultLimit, seResultLimit] = useState(10);
+  const toast = useToast();
 
   const incrementResultLimit = () => seResultLimit(userResultLimit + 10);
 
-  const fetchUser = (limit) => {};
+  const fetchUser = () => {
+    axios
+      .get(`user?limit=${userResultLimit}`)
+      .then((res) => setUsers(res.data.data))
+      .catch((err) => {
+        console.error(err.response.data);
+        toast({
+          title: "Error",
+          description: "Error fetching users",
+          status: "error",
+          duration: 4000,
+        });
+      });
+  };
 
   return (
     <>
