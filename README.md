@@ -2,6 +2,10 @@
 
 A simple application to view users profiles and their posts along with the associated comments.
 
+## Notes
+
+All diagrams can be found in the docs folder. Additional thoughts are located in the notes.md
+
 ## Running Locally
 
 ```bash
