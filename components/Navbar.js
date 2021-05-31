@@ -5,7 +5,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <>
-      <Flex backgroundColor="transparent" mb={4} w="full">
+      <Flex backgroundColor="transparent" mb={4} w="full" data-testid="navbar">
         <Flex
           alignItems="center"
           justifyContent="space-between"

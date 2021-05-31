@@ -12,17 +12,17 @@ export default function ProfileDetail({ user }) {
   return (
     <Page>
       <ProfileCard>
-        <Link
-          href="/"
-          mb={3}
-          color="blue.500"
-          variant="outline"
-          onClick={() => router.back()}
-        >
+        <Link href="/" mb={3} color="blue.500" variant="outline">
           Home
         </Link>
-        <Flex w="100%" justifyContent="space-evenly" alignItems="center">
+        <Flex
+          w="100%"
+          justifyContent="space-evenly"
+          alignItems="center"
+          data-testid="profile-container"
+        >
           <Image
+            data-testid="profile-image"
             src={user?.picture}
             w={{
               xl: "20%",
@@ -32,10 +32,15 @@ export default function ProfileDetail({ user }) {
             }}
           />
           <Box>
-            <Heading textTransform="capitalize">
+            <Heading textTransform="capitalize" data-testid="profile-name">
               {user?.title} {user?.firstName} {user?.lastName}
             </Heading>
-            <CardItem label="Gender" value={user?.gender} isCapitalized />
+            <CardItem
+              data-testid="profile-gender"
+              label="Gender"
+              value={user?.gender}
+              isCapitalized
+            />
             <CardItem
               label="Date Of Birth"
               value={format(parseISO(user?.dateOfBirth), "dd/MM/yyyy")}
@@ -56,6 +61,7 @@ export default function ProfileDetail({ user }) {
   );
 }
 
+/* istanbul ignore next */
 export async function getStaticPaths() {
   const { data } = await axios.get("https://dummyapi.io/data/api/user");
 
@@ -67,6 +73,7 @@ export async function getStaticPaths() {
   };
 }
 
+/* istanbul ignore next */
 export async function getStaticProps({ params }) {
   const { data } = await axios.get(
     `https://dummyapi.io/data/api/user/${params.id}`

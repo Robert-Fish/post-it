@@ -21,4 +21,28 @@ describe("Profile Detail", () => {
 
     expect(goBackBtn).toHaveAttribute("href", `/posts?byUser=${user.id}`);
   });
+
+  test("should render the profile image", () => {
+    const { getByText, getByTestId } = render(<ProfileDetail user={user} />);
+    const image = getByTestId("profile-image");
+    expect(image).toBeVisible();
+  });
+
+  test("should render the profile name", () => {
+    const { getByText, getByTestId } = render(<ProfileDetail user={user} />);
+    const image = getByTestId("profile-name");
+    expect(image).toBeVisible();
+  });
+
+  test("should render the profile gender", () => {
+    const { getByText, getByTestId } = render(<ProfileDetail user={user} />);
+    const image = getByTestId("profile-gender");
+    expect(image).toBeVisible();
+  });
+
+  test("should render the profile container", () => {
+    const { getByText, getByTestId } = render(<ProfileDetail user={user} />);
+    const image = getByTestId("profile-container");
+    expect(image).toBeVisible();
+  });
 });

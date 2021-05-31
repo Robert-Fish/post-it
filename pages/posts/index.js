@@ -32,8 +32,15 @@ export default function Posts() {
   }, [byUser]);
 
   return (
-    <Page>
-      <Link mt={2} href="/" mb={2} color="blue.500" variant="outline">
+    <>
+      <Link
+        data-testid="back"
+        mt={2}
+        href="/"
+        mb={2}
+        color="blue.500"
+        variant="outline"
+      >
         Back
       </Link>
       <Wrap spacing={2}>
@@ -89,6 +96,6 @@ export default function Posts() {
           </WrapItem>
         ))}
       </Wrap>
-    </Page>
+    </>
   );
 }
