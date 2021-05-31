@@ -17,9 +17,11 @@ const server = setupServer(
 );
 
 beforeAll(() => {
+  jest.useFakeTimers();
   server.listen();
 });
 afterAll(() => {
+  jest.useRealTimers();
   server.close();
 });
 afterEach(() => server.resetHandlers());
@@ -27,6 +29,7 @@ afterEach(() => server.resetHandlers());
 describe("Home", () => {
   test("should render a grid of 10 users as cards", async () => {
     const { getAllByTestId } = await render(<Home />);
+    act(() => jest.advanceTimersByTime(4000));
     const profiles = getAllByTestId("profile");
     expect(profiles.length).toBe(10);
   });
