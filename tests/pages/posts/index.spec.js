@@ -4,7 +4,7 @@
 
 import React from "react";
 import { render } from "../../test-utils";
-import Posts from "../../../pages/posts/[id[";
+import Posts from "../../../pages/posts/[id]";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import * as nextRouter from "next/router";

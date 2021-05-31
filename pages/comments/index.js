@@ -23,6 +23,7 @@ export default function Comments() {
   const { id } = router.query;
   const [comments, setComments] = useState([]);
 
+  /* istanbul ignore next */
   useEffect(() => {
     axios
       .get(`https://dummyapi.io/data/api/post/${id}/comment?limit=10`)
@@ -54,7 +55,7 @@ export default function Comments() {
                     mr={2}
                     size="md"
                     src={comment?.owner.picture}
-                  ></Avatar>
+                  />
                   <Stack w="80%" spacing={1}>
                     <Heading size="sm">
                       {comment?.owner?.firstName} {comment?.owner?.lastName}
