@@ -1,28 +1,34 @@
-import { SearchIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/button";
 import {
   Box,
-  Button,
+  CircularProgress,
+  Flex,
   Grid,
   Heading,
+  Image,
+  useToast,
   Input,
   InputGroup,
   InputLeftElement,
-  useToast,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { SearchIcon } from "@chakra-ui/icons";
 
 export default function Home() {
   const [searchTerm, setTerm] = useState("");
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [userResultLimit, seResultLimit] = useState(10);
   const toast = useToast();
+  const router = useRouter();
 
   const incrementResultLimit = () => seResultLimit(userResultLimit + 10);
 
   const fetchUsers = () => {
     axios
-      .get(`user?limit=${userResultLimit}`)
+      .get(`https://dummyapi.io/data/api/user?limit=${userResultLimit}`)
       .then((res) => setUsers(res.data.data))
       .catch((err) => {
         console.error(err.response.data);
@@ -36,7 +42,9 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchUsers();
+    setLoading(false);
   }, []);
 
   return (
@@ -65,16 +73,40 @@ export default function Home() {
         }}
         gap={6}
       >
-        {users?.map((user, index) => (
+        {users?.map((user) => (
           <Box
-            data-testid={`profile`}
+            data-testid="profile"
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
             key={user?.id}
             maxW="sm"
             bg="white"
-          ></Box>
+          >
+            <Image src={user?.picture} objectFit="contain" w="100%" />
+            <Box p="3">
+              <Heading size="md">
+                {user?.firstName} {user?.lastName}
+              </Heading>
+              <Button
+                size="sm"
+                mt={2}
+                colorScheme="blue"
+                onClick={() => router.push(`/profile/${user?.id}`)}
+              >
+                View Profile
+              </Button>{" "}
+              <Button
+                size="sm"
+                mt={2}
+                colorScheme="blue"
+                variant="outline"
+                onClick={() => router.push(`/profile/${user?.id}`)}
+              >
+                View Posts
+              </Button>{" "}
+            </Box>
+          </Box>
         ))}
       </Grid>
       <Button

@@ -4,7 +4,6 @@ import { Global, css } from "@emotion/react";
 import Head from "next/head";
 
 axios.defaults.headers.common["app-id"] = process.env.NEXT_PUBLIC_DUMMY_APP_ID;
-axios.defaults.baseURL = "https://dummyapi.io/data/api/";
 
 const GlobalStyle = ({ children }) => {
   return (

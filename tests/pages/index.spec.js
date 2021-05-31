@@ -2,14 +2,31 @@
  * @jest-environment jsdom
  */
 
-import React from "react";
-import { render } from "../test-utils";
-import Home from "../../pages/index";
 import { act, fireEvent } from "@testing-library/react";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import React from "react";
+import userListResponse from "../../mockResponses/userList";
+import Home from "../../pages/index";
+import { render } from "../test-utils";
+
+const server = setupServer(
+  rest.get("https://dummyapi.io/data/api/user", (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(userListResponse));
+  })
+);
+
+beforeAll(() => {
+  server.listen();
+});
+afterAll(() => {
+  server.close();
+});
+afterEach(() => server.resetHandlers());
 
 describe("Home", () => {
-  test("should render a grid of 10 users as cards", () => {
-    const { getAllByTestId } = render(<Home />);
+  test("should render a grid of 10 users as cards", async () => {
+    const { getAllByTestId } = await render(<Home />);
     const profiles = getAllByTestId("profile");
     expect(profiles.length).toBe(10);
   });
