@@ -1,28 +1,26 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Link } from "@chakra-ui/react";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import { useRouter } from "next/router";
 import React from "react";
+import Page from "../../components/Page";
 import CardItem from "../../components/profile/CardItem";
 import ProfileCard from "../../components/profile/ProfileCard";
-import Page from "../../components/Page";
 
 export default function ProfileDetail({ user }) {
   const router = useRouter();
   return (
     <Page>
       <ProfileCard>
-        <Button
-          leftIcon={<ArrowBackIcon />}
+        <Link
+          href="/"
           mb={3}
-          w="15%"
-          colorScheme="blue"
+          color="blue.500"
           variant="outline"
           onClick={() => router.back()}
         >
-          Go Back
-        </Button>
+          Home
+        </Link>
         <Flex w="100%" justifyContent="space-evenly" alignItems="center">
           <Image
             src={user?.picture}
@@ -50,9 +48,9 @@ export default function ProfileDetail({ user }) {
             <CardItem label="Phone" value={user?.phone} />
           </Box>
         </Flex>
-        <Button mt={6} w="30%" colorScheme="blue">
+        <Link mt={6} color="blue.500" href={`/posts?byUser=${user.id}`}>
           View Posts
-        </Button>
+        </Link>
       </ProfileCard>
     </Page>
   );
