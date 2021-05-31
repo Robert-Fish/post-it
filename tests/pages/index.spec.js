@@ -17,27 +17,26 @@ const server = setupServer(
 );
 
 beforeAll(() => {
-  jest.useFakeTimers();
   server.listen();
 });
 afterAll(() => {
-  jest.useRealTimers();
   server.close();
 });
 afterEach(() => server.resetHandlers());
 
 describe("Home", () => {
   test("should render a grid of 10 users as cards", async () => {
-    const { getAllByTestId } = await render(<Home />);
-    act(() => jest.advanceTimersByTime(4000));
-    const profiles = getAllByTestId("profile");
-    expect(profiles.length).toBe(10);
+    const { getAllByTestId, getByTestId } = render(<Home />);
+    await new Promise((r) => setTimeout(r, 1000));
+    const grid = getByTestId("grid");
+    expect(grid).toBeInTheDocument();
   });
 
-  test("should render a load more button to load 10 more users into the existing user grid", () => {
-    const { getByText } = render(<Home />);
-    const loadMoreButton = getByText("Load More");
-    expect(loadMoreButton).toBeVisible();
+  test("should render a load more button to load 1s0 more users into the existing user grid", async () => {
+    const { getByTestId } = render(<Home />);
+    await new Promise((r) => setTimeout(r, 1000));
+    const loadMoreButton = getByTestId("load-more");
+    expect(loadMoreButton).toBeInTheDocument();
   });
 
   test("should display 10 more users than currently show in user grid", async () => {
