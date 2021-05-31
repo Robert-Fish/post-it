@@ -139,7 +139,7 @@ export default function Home() {
                     mt={2}
                     colorScheme="blue"
                     variant="outline"
-                    onClick={() => router.push(`/profile/${user?.id}`)}
+                    onClick={() => router.push(`/posts?byUser=${user?.id}`)}
                   >
                     View Posts
                   </Button>{" "}
