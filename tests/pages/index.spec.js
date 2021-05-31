@@ -9,7 +9,7 @@ import { act, fireEvent } from "@testing-library/react";
 
 describe("Home", () => {
   test("should render a grid of 10 users as cards", () => {
-    const { getAllByTestId } = await render(<Home />);
+    const { getAllByTestId } = render(<Home />);
     const profiles = getAllByTestId("profile");
     expect(profiles.length).toBe(10);
   });
