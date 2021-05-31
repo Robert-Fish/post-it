@@ -25,6 +25,7 @@ export default function Home() {
   const toast = useToast();
   const router = useRouter();
 
+  /* istanbul ignore next */
   useEffect(() => {
     setLimitLoading(true);
     axios
@@ -47,6 +48,7 @@ export default function Home() {
       });
   }, [pageLimit]);
 
+  /* istanbul ignore next */
   useEffect(() => {
     setLoading(true);
     axios

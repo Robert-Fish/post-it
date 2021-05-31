@@ -82,15 +82,17 @@ describe("Home", () => {
   });
 
   test("should render a list of users that must contain the email of the searched value in the search bar", async () => {
-    const searchedValue = "jim@example.com";
-    const { getByTestId, findByText } = render(<Home />);
+    const searchedValue = "heinz-georg.fiedler@example.com";
+    const { getByTestId, findByText, findByTestId } = render(<Home />);
+    await new Promise((r) => setTimeout(r, 3000));
     const searchBar = getByTestId("searchbar");
 
     await act(async () => {
       fireEvent.change(searchBar, { target: { value: searchedValue } });
     });
+    await new Promise((r) => setTimeout(r, 3000));
 
-    const firstResult = findByText("jim");
+    const firstResult = findByTestId("profile");
     expect(firstResult).toBeVisible();
   });
 });
