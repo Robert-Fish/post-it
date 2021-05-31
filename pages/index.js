@@ -12,6 +12,8 @@ export default function Home() {
   const [searchTerm, setTerm] = useState("");
   const [userResultLimit, seResultLimit] = useState(10);
 
+  const incrementResultLimit = () => seResultLimit(userResultLimit + 10);
+
   return (
     <>
       <Heading>Users</Heading>
@@ -28,7 +30,11 @@ export default function Home() {
           placeholder="Search user by email or name..."
         />
       </InputGroup>
-      <Button variant="outline" colorScheme="blue">
+      <Button
+        variant="outline"
+        colorScheme="blue"
+        onClick={incrementResultLimit}
+      >
         Load More
       </Button>
     </>
