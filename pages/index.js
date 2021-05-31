@@ -7,8 +7,9 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
 
   const incrementResultLimit = () => seResultLimit(userResultLimit + 10);
 
-  const fetchUser = () => {
+  const fetchUsers = () => {
     axios
       .get(`user?limit=${userResultLimit}`)
       .then((res) => setUsers(res.data.data))
@@ -33,6 +34,10 @@ export default function Home() {
         });
       });
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   return (
     <>
@@ -62,7 +67,7 @@ export default function Home() {
       >
         {users?.map((user, index) => (
           <Box
-            data-testid={`profile-${index}`}
+            data-testid={`profile`}
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"

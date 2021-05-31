@@ -10,7 +10,7 @@ import { act, fireEvent } from "@testing-library/react";
 describe("Home", () => {
   test("should render a grid of 10 users as cards", () => {
     const { getAllByTestId } = render(<Home />);
-    const profiles = getAllByTestId("profile-");
+    const profiles = getAllByTestId("profile");
     expect(profiles.length).toBe(10);
   });
 
@@ -22,7 +22,7 @@ describe("Home", () => {
 
   test("should display 10 more users than currently show in user grid", async () => {
     const currentNoOfUsersInGrid = 10;
-    const { getByText } = render(<Home />);
+    const { getByText, getAllByTestId } = render(<Home />);
     const loadMoreButton = getByText("Load More");
 
     await act(async () => {
