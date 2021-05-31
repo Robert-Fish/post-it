@@ -14,6 +14,7 @@ import {
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Page from "../components/Page";
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -75,7 +76,7 @@ export default function Home() {
   }, [searchTerm]);
 
   return (
-    <>
+    <Page>
       <Heading>Users</Heading>
       <InputGroup mt={3} mb={3}>
         <InputLeftElement
@@ -160,6 +161,6 @@ export default function Home() {
           </Button>
         </>
       )}
-    </>
+    </Page>
   );
 }
