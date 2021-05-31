@@ -14,7 +14,6 @@ import userListResponse from "../../mockResponses/userListDefault";
 const server = setupServer(
   rest.get("https://dummyapi.io/data/api/user", (req, res, ctx) => {
     const limit = req.url.searchParams.get("limit");
-    console.log(limit);
 
     if (limit === 20) {
       return res(ctx.status(200), ctx.json(userListResponseExpanded));
