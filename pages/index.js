@@ -1,9 +1,16 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Heading, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Button,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
   const [searchTerm, setTerm] = useState("");
+  const [userResultLimit, seResultLimit] = useState(10);
 
   return (
     <>
@@ -21,6 +28,9 @@ export default function Home() {
           placeholder="Search user by email or name..."
         />
       </InputGroup>
+      <Button variant="outline" colorScheme="blue">
+        Load More
+      </Button>
     </>
   );
 }
