@@ -27,6 +27,7 @@ export default function Home() {
 
   /* istanbul ignore next */
   useEffect(() => {
+    /* istanbul ignore next */
     setLimitLoading(true);
     axios
       .get(`https://dummyapi.io/data/api/user?limit=${pageLimit}`)

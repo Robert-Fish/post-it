@@ -53,11 +53,7 @@ export default function Posts() {
                 alignItems="center"
                 justifyContent="space-between"
               >
-                <Avatar
-                  size="md"
-                  name="Dan Abrahmov"
-                  src={post?.owner?.picture}
-                />
+                <Avatar size="md" src={post?.owner?.picture} />
                 <Stack w="70%" spacing={1}>
                   <Heading size="sm">
                     {post?.owner?.firstName} {post?.owner?.lastName}
@@ -85,10 +81,18 @@ export default function Posts() {
               </Flex>
               <Divider />
               <Flex mt={2} justifyContent="space-between">
-                <Link href="/" color="blue.500" variant="outline">
+                <Link
+                  href={`/comments/?id=${post?.id}`}
+                  color="blue.500"
+                  variant="outline"
+                >
                   Get Post Comments
                 </Link>{" "}
-                <Link href="/" color="blue.500" variant="outline">
+                <Link
+                  href={`/profile/${post?.owner?.id}`}
+                  color="blue.500"
+                  variant="outline"
+                >
                   Get Owner Profile
                 </Link>
               </Flex>
