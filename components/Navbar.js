@@ -30,7 +30,7 @@ const Navbar = () => {
                 Home
               </Link>
             </NextLink>
-            <NextLink href="/profile/create-profile" passHref>
+            <NextLink href="/profile/create" passHref>
               <Link mr={2} ml={2} fontWeight="medium">
                 Create Profile
               </Link>
